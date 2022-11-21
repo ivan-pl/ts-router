@@ -2,9 +2,9 @@
 
 type TMatch = (() => void) | string | RegExp;
 interface IParams {
-  onEnter?: () => void;
-  onLeave?: () => void;
-  onBeforeEnter?: () => void;
+  onEnter?: () => Promise<void>;
+  onLeave?: () => Promise<void>;
+  onBeforeEnter?: () => Promise<void>;
 }
 
 export interface IRouter {
