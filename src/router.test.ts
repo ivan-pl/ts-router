@@ -10,5 +10,15 @@ describe("HistoryRouter", () => {
     it("returns instance of Router", () => {
       expect(router).toBeInstanceOf(HistoryRouter);
     });
+
+    it("has .on", () => {
+      expect(router.on).toBeInstanceOf(Function);
+      const unsubscribe = router.on("");
+      expect(unsubscribe).toBeInstanceOf(Function);
+    });
+
+    it("has .go", () => {
+      expect(router.go).toBeInstanceOf(Function);
+    });
   });
 });
