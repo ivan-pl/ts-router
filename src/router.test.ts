@@ -105,5 +105,35 @@ describe("HistoryRouter", () => {
       link.click();
       expect(spy).toHaveBeenCalled();
     });
+
+    it("supports onEnter", () => {
+      const param = { onEnter: jest.fn() };
+      const path = "/";
+      const link = createLink(path);
+      router.on(path, param);
+
+      expect(param.onEnter).not.toBeCalled();
+      link.click();
+      expect(param.onEnter).toBeCalled();
+    });
+
+    it("supports onLeave", () => {
+      const param = { onEnter: jest.fn(), onLeave: jest.fn() };
+      const path = "/contact";
+      const link = createLink(path);
+      router.on(path, param);
+
+      expect(param.onLeave).not.toBeCalled();
+      link.click();
+      expect(param.onLeave).not.toBeCalled();
+
+      const anotherPath = path + "random-link";
+      const anotherLink = createLink(path + "random-link");
+      router.on(anotherPath);
+
+      expect(param.onLeave).not.toBeCalled();
+      anotherLink.click();
+      expect(param.onLeave).toBeCalled();
+    });
   });
 });
