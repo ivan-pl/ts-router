@@ -1,5 +1,8 @@
 import { HistoryRouter, IRouter } from "./router";
 
+const sleep = (delay: number) =>
+  new Promise((resolve) => setTimeout(resolve, delay));
+
 describe("HistoryRouter", () => {
   describe("has interface", () => {
     let router: IRouter;
@@ -134,6 +137,29 @@ describe("HistoryRouter", () => {
       expect(param.onLeave).not.toBeCalled();
       anotherLink.click();
       expect(param.onLeave).toBeCalled();
+    });
+
+    it("supports onBeforeEnter", async () => {
+      const callStack: ("onEnter" | "onBeforeEnter")[] = [];
+      const params = {
+        onEnter: jest.fn(async () => {
+          callStack.push("onEnter");
+        }),
+        onBeforeEnter: jest.fn(async () => {
+          callStack.push("onBeforeEnter");
+        }),
+      };
+      const path = "/contact";
+      const link = createLink(path);
+      router.on(path, params);
+
+      expect(params.onEnter).not.toBeCalled();
+      expect(params.onBeforeEnter).not.toBeCalled();
+      link.click();
+      await sleep(5)
+      expect(params.onEnter).toBeCalled();
+      expect(params.onBeforeEnter).toBeCalled();
+      expect(callStack).toEqual(["onBeforeEnter", "onEnter"]);
     });
   });
 });

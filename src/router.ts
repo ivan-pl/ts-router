@@ -65,9 +65,11 @@ export class HistoryRouter implements IRouter {
 
     if (this.isMatch(match, this.curPath)) {
       if (onBeforeEnter) {
+        console.log("onBeforeEnter")
         await onBeforeEnter(args);
       }
       if (onEnter) {
+        console.log("onEnter")
         await onEnter(args);
       }
     }
