@@ -156,10 +156,28 @@ describe("HistoryRouter", () => {
       expect(params.onEnter).not.toBeCalled();
       expect(params.onBeforeEnter).not.toBeCalled();
       link.click();
-      await sleep(5)
+      await sleep(5);
       expect(params.onEnter).toBeCalled();
       expect(params.onBeforeEnter).toBeCalled();
       expect(callStack).toEqual(["onBeforeEnter", "onEnter"]);
+    });
+
+    it("supports unsubscribe", () => {
+      const params = {
+        onEnter: jest.fn(),
+      };
+      const path = "/contact";
+      const link = createLink(path);
+      const unsubscribe = router.on(path, params);
+
+      expect(params.onEnter).not.toBeCalled();
+      link.click();
+      expect(params.onEnter).toBeCalledTimes(1);
+      link.click();
+      expect(params.onEnter).toBeCalledTimes(2);
+      unsubscribe();
+      link.click();
+      expect(params.onEnter).toBeCalledTimes(2);
     });
   });
 });

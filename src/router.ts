@@ -25,7 +25,7 @@ export class HistoryRouter implements IRouter {
   on(match: TMatch, params: IParams) {
     const handler: IHandler = { match, params };
     this.handlers.set(match, handler);
-    return () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
+    return () => this.handlers.delete(match);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,11 +65,9 @@ export class HistoryRouter implements IRouter {
 
     if (this.isMatch(match, this.curPath)) {
       if (onBeforeEnter) {
-        console.log("onBeforeEnter")
         await onBeforeEnter(args);
       }
       if (onEnter) {
-        console.log("onEnter")
         await onEnter(args);
       }
     }
