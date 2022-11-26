@@ -1,18 +1,18 @@
-export type TMatch = string | RegExp | ((path: string) => boolean);
+export type Match = string | RegExp | ((path: string) => boolean);
 
-export interface IHookArgs {
+export interface HookArgs {
   prevPath: string;
   curPath: string;
   state: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export interface IParams {
-  onEnter?: (state: IHookArgs) => Promise<void>;
-  onLeave?: (state: IHookArgs) => Promise<void>;
-  onBeforeEnter?: (state: IHookArgs) => Promise<void>;
+export interface Params {
+  onEnter?: (state: HookArgs) => Promise<void>;
+  onLeave?: (state: HookArgs) => Promise<void>;
+  onBeforeEnter?: (state: HookArgs) => Promise<void>;
 }
 
-export interface IHandler {
-  match: TMatch;
-  params: IParams;
+export interface Handler {
+  match: Match;
+  params: Params;
 }

@@ -1,12 +1,12 @@
-import { TMatch, IHookArgs, IParams, IHandler } from "./types";
+import { Match, HookArgs, Params, Handler } from "./types";
 
-export interface IRouter {
-  on(match: TMatch, params?: IParams): () => void;
+export interface Router {
+  on(match: Match, params?: Params): () => void;
   go(url: string, state: any): void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-export class HistoryRouter implements IRouter {
-  private handlers: Map<TMatch, IHandler> = new Map();
+export class HistoryRouter implements Router {
+  private handlers: Map<Match, Handler> = new Map();
   private prevPath = "";
   private curPath: string = location.pathname;
 
@@ -22,8 +22,8 @@ export class HistoryRouter implements IRouter {
     });
   }
 
-  on(match: TMatch, params: IParams) {
-    const handler: IHandler = { match, params };
+  on(match: Match, params: Params) {
+    const handler: Handler = { match, params };
     this.handlers.set(match, handler);
     return () => this.handlers.delete(match);
   }
@@ -37,7 +37,7 @@ export class HistoryRouter implements IRouter {
     this.handlers.forEach((handler) => this.callHandler(handler));
   }
 
-  private isMatch(match: TMatch, path: string) {
+  private isMatch(match: Match, path: string) {
     if (typeof match === "string") {
       return match === path;
     }
@@ -52,8 +52,8 @@ export class HistoryRouter implements IRouter {
   private async callHandler({
     match,
     params: { onEnter, onBeforeEnter, onLeave } = {},
-  }: IHandler) {
-    const args: IHookArgs = {
+  }: Handler) {
+    const args: HookArgs = {
       curPath: this.curPath,
       prevPath: this.prevPath,
       state: history.state,

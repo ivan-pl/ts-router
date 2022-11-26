@@ -1,11 +1,11 @@
-import { HistoryRouter, IRouter } from "./router";
+import { HistoryRouter, Router } from "./router";
 
 const sleep = (delay: number) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 
 describe("HistoryRouter", () => {
   describe("has interface", () => {
-    let router: IRouter;
+    let router: Router;
     beforeEach(() => {
       router = new HistoryRouter();
     });
@@ -26,7 +26,7 @@ describe("HistoryRouter", () => {
   });
 
   describe("implements api", () => {
-    let router: IRouter;
+    let router: Router;
     const createLink = (href?: string) => {
       const link = document.createElement("a");
       if (href) {
