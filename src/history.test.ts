@@ -1,4 +1,5 @@
-import { HistoryRouter, Router } from "./router";
+import { HistoryRouter } from "./history";
+import { Router } from "./types";
 
 const sleep = (delay: number) =>
   new Promise((resolve) => setTimeout(resolve, delay));

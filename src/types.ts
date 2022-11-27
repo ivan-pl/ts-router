@@ -16,3 +16,8 @@ export interface Handler {
   match: Match;
   params: Params;
 }
+
+export interface Router {
+  on(match: Match, params?: Params): () => void;
+  go(url: string, state: any): void; // eslint-disable-line @typescript-eslint/no-explicit-any
+}
