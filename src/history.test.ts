@@ -1,4 +1,4 @@
-import { HistoryRouter } from "./history";
+import HistoryRouter from "./history";
 import { Router } from "./types";
 
 const sleep = (delay: number) =>
