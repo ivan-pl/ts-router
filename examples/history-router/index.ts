@@ -26,3 +26,5 @@ router.on("/about/us", {
     app.innerText = "About Us page";
   },
 });
+
+router.go(document.location.toString(), history.state);
