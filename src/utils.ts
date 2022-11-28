@@ -11,4 +11,3 @@ export function isMatch(match: Match, path: string) {
 
   return match(path);
 }
-

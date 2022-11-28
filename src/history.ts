@@ -1,5 +1,5 @@
 import { Match, Router, HookArgs, Params, Handler } from "./types";
-import {isMatch} from "./utils"
+import { isMatch } from "./utils";
 
 class HistoryRouter implements Router {
   private handlers: Map<Match, Handler> = new Map();

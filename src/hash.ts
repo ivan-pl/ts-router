@@ -1,5 +1,5 @@
 import { Match, Router, HookArgs, Params, Handler } from "./types";
-import {isMatch} from "./utils"
+import { isMatch } from "./utils";
 
 class HashRouter implements Router {
   private handlers: Map<Match, Handler> = new Map();
@@ -25,6 +25,7 @@ class HashRouter implements Router {
     return () => this.handlers.delete(match);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   go(url: string, state: any): void {
     this.prevPath = this.curPath;
     this.state = state;
