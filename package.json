@@ -8,6 +8,7 @@
     "lint": "prettier --check . && eslint . --ext .js,.ts && tsc --noEmit",
     "lint:fix": "prettier --write . && eslint . --fix --ext .js,.ts",
     "dev:history": "webpack serve --config webpack.history.js",
+    "dev:hash": "webpack serve --config webpack.hash.js",
     "prepare": "husky install"
   },
   "keywords": [],

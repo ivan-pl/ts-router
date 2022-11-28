@@ -25,7 +25,7 @@ describe("has interface", () => {
   });
 });
 
-describe.skip("implements api", () => {
+describe("implements api", () => {
   let router: Router;
   const createLink = (href?: string) => {
     const link = document.createElement("a");
@@ -56,7 +56,7 @@ describe.skip("implements api", () => {
 
     link.click();
     expect(router.go).toHaveBeenCalled();
-    expect(router.go).toHaveBeenCalledWith(href, history.state);
+    expect(router.go).toHaveBeenCalledWith(href, {});
   });
 
   it("routes to root for empty href", () => {
@@ -64,7 +64,7 @@ describe.skip("implements api", () => {
     const link = createLink();
     link.click();
 
-    expect(router.go).toHaveBeenCalledWith("/", history.state);
+    expect(router.go).toHaveBeenCalledWith("/", {});
   });
 
   it(".on supports strings", () => {
@@ -130,8 +130,8 @@ describe.skip("implements api", () => {
     link.click();
     expect(param.onLeave).not.toBeCalled();
 
-    const anotherPath = path + "random-link";
-    const anotherLink = createLink(path + "random-link");
+    const anotherPath = path + "/random-link";
+    const anotherLink = createLink(anotherPath);
     router.on(anotherPath);
 
     expect(param.onLeave).not.toBeCalled();
