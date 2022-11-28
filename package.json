@@ -45,5 +45,8 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix",
     "*.{js,md}": "prettier --write"
+  },
+  "dependencies": {
+    "@types/body-parser": "^1.19.2"
   }
 }
