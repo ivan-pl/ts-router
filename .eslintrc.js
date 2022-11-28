@@ -11,7 +11,14 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
-  overrides: [],
+  overrides: [
+    {
+      files: ["./webpack.*.js"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+    },
+  ],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
