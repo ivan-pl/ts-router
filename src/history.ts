@@ -15,6 +15,10 @@ class HistoryRouter implements Router {
       const url = el.getAttribute("href") ?? "/";
       this.go(url, history.state);
     });
+
+    window.addEventListener("load", () =>
+      this.go(document.location, history.state)
+    );
   }
 
   on(match: Match, params: Params) {

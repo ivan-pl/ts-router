@@ -15,7 +15,6 @@ module.exports = merge(common, {
   devServer: {
     compress: true,
     port: 9000,
-    open: true,
     historyApiFallback: true,
     watchFiles: ["*.html"],
   },

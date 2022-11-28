@@ -7,7 +7,7 @@
     "test": "jest --coverage",
     "lint": "prettier --check . && eslint . --ext .js,.ts && tsc --noEmit",
     "lint:fix": "prettier --write . && eslint . --fix --ext .js,.ts",
-    "dev:history": "webpack serve --open --config webpack.history.js",
+    "dev:history": "webpack serve --config webpack.history.js",
     "prepare": "husky install"
   },
   "keywords": [],
