@@ -1,4 +1,5 @@
 import { Match, Router, HookArgs, Params, Handler } from "./types";
+import {isMatch} from "./utils"
 
 class HistoryRouter implements Router {
   private handlers: Map<Match, Handler> = new Map();
@@ -32,18 +33,6 @@ class HistoryRouter implements Router {
     this.handlers.forEach((handler) => this.callHandler(handler));
   }
 
-  private isMatch(match: Match, path: string) {
-    if (typeof match === "string") {
-      return match === path;
-    }
-
-    if (match instanceof RegExp) {
-      return match.test(path);
-    }
-
-    return match(path);
-  }
-
   private async callHandler({
     match,
     params: { onEnter, onBeforeEnter, onLeave } = {},
@@ -54,11 +43,11 @@ class HistoryRouter implements Router {
       state: history.state,
     };
 
-    if (onLeave && this.isMatch(match, this.prevPath)) {
+    if (onLeave && isMatch(match, this.prevPath)) {
       await onLeave(args);
     }
 
-    if (this.isMatch(match, this.curPath)) {
+    if (isMatch(match, this.curPath)) {
       if (onBeforeEnter) {
         await onBeforeEnter(args);
       }
