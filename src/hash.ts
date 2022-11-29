@@ -27,6 +27,7 @@ class HashRouter implements Router {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   go(url: string, state: any): void {
+    url = url || "/";
     this.prevPath = this.curPath;
     this.state = state;
     location.hash = url;
