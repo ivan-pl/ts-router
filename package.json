@@ -1,10 +1,16 @@
 {
   "name": "some-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Just another ordinary router",
+  "homepage": "https://github.com/ivan-pl/ts-router#readme",
+  "bugs": {
+    "url": "https://github.com/ivan-pl/ts-router/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["/dist"],
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "jest --coverage",
     "lint": "prettier --check . && eslint . --ext .js,.ts && tsc --noEmit",
