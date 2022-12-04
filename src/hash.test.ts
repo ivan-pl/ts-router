@@ -1,4 +1,4 @@
-import HistoryRouter from "./history";
+import HashRouter from "./hash";
 import { Router } from "./types";
 
 const sleep = (delay: number) =>
@@ -7,11 +7,11 @@ const sleep = (delay: number) =>
 describe("has interface", () => {
   let router: Router;
   beforeEach(() => {
-    router = new HistoryRouter();
+    router = new HashRouter();
   });
 
   it("returns instance of Router", () => {
-    expect(router).toBeInstanceOf(HistoryRouter);
+    expect(router).toBeInstanceOf(HashRouter);
   });
 
   it("has .on", () => {
@@ -37,7 +37,7 @@ describe("implements api", () => {
   };
 
   beforeEach(() => {
-    router = new HistoryRouter();
+    router = new HashRouter();
   });
 
   afterEach(() => {
@@ -56,7 +56,7 @@ describe("implements api", () => {
 
     link.click();
     expect(router.go).toHaveBeenCalled();
-    expect(router.go).toHaveBeenCalledWith(href, history.state);
+    expect(router.go).toHaveBeenCalledWith(href, {});
   });
 
   it("routes to root for empty href", () => {
@@ -64,7 +64,7 @@ describe("implements api", () => {
     const link = createLink();
     link.click();
 
-    expect(router.go).toHaveBeenCalledWith("/", history.state);
+    expect(router.go).toHaveBeenCalledWith("/", {});
   });
 
   it(".on supports strings", () => {
@@ -130,8 +130,8 @@ describe("implements api", () => {
     link.click();
     expect(param.onLeave).not.toBeCalled();
 
-    const anotherPath = path + "random-link";
-    const anotherLink = createLink(path + "random-link");
+    const anotherPath = path + "/random-link";
+    const anotherLink = createLink(anotherPath);
     router.on(anotherPath);
 
     expect(param.onLeave).not.toBeCalled();

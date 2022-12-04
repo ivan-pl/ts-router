@@ -5,17 +5,11 @@ const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
   entry: {
-    app: path.join(__dirname, "examples", "history-router", "index.ts"),
-  },
-  output: {
-    publicPath: "/",
+    app: path.join(__dirname, "examples", "hash-router", "index.ts"),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./examples/history-router/index.html",
+      template: "./examples/hash-router/index.html",
     }),
   ],
-  devServer: {
-    historyApiFallback: true,
-  },
 });

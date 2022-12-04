@@ -10,7 +10,6 @@ module.exports = {
     environment: {
       arrowFunction: false,
     },
-    publicPath: "/",
   },
   resolve: {
     extensions: [".ts", ".js"],
@@ -25,5 +24,10 @@ module.exports = {
         },
       },
     ],
+  },
+  devServer: {
+    compress: true,
+    port: 9000,
+    watchFiles: ["*.html"],
   },
 };

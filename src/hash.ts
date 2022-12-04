@@ -1,10 +1,11 @@
 import { Match, Router, HookArgs, Params, Handler } from "./types";
 import { isMatch } from "./utils";
 
-class HistoryRouter implements Router {
+class HashRouter implements Router {
   private handlers: Map<Match, Handler> = new Map();
   private prevPath = "";
-  private curPath: string = location.pathname;
+  private curPath: string = location.hash;
+  state: HookArgs["state"];
 
   constructor() {
     document.body.addEventListener("click", (event) => {
@@ -14,11 +15,11 @@ class HistoryRouter implements Router {
       }
       event.preventDefault();
       const url = el.getAttribute("href") ?? "/";
-      this.go(url, history.state);
+      this.go(url, {});
     });
   }
 
-  on(match: Match, params: Params) {
+  on(match: Match, params: Params): () => void {
     const handler: Handler = { match, params };
     this.handlers.set(match, handler);
     return () => this.handlers.delete(match);
@@ -26,9 +27,11 @@ class HistoryRouter implements Router {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   go(url: string, state: any): void {
+    url = url || "/";
     this.prevPath = this.curPath;
-    history.pushState(state, url, url);
-    this.curPath = location.pathname;
+    this.state = state;
+    location.hash = url;
+    this.curPath = url;
 
     this.handlers.forEach((handler) => this.callHandler(handler));
   }
@@ -40,10 +43,14 @@ class HistoryRouter implements Router {
     const args: HookArgs = {
       curPath: this.curPath,
       prevPath: this.prevPath,
-      state: history.state,
+      state: this.state,
     };
 
-    if (onLeave && isMatch(match, this.prevPath)) {
+    if (
+      onLeave &&
+      this.prevPath !== this.curPath &&
+      isMatch(match, this.prevPath)
+    ) {
       await onLeave(args);
     }
 
@@ -58,4 +65,4 @@ class HistoryRouter implements Router {
   }
 }
 
-export default HistoryRouter;
+export default HashRouter;

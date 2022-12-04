@@ -1,17 +1,28 @@
 {
-  "name": "ts-router",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "name": "some-router",
+  "version": "1.0.2",
+  "description": "Just another ordinary router",
+  "homepage": "https://github.com/ivan-pl/ts-router#readme",
+  "bugs": {
+    "url": "https://github.com/ivan-pl/ts-router/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "test": "jest --coverage",
     "lint": "prettier --check . && eslint . --ext .js,.ts && tsc --noEmit",
     "lint:fix": "prettier --write . && eslint . --fix --ext .js,.ts",
     "dev:history": "webpack serve --config webpack.history.js",
-    "prepare": "husky install"
+    "dev:hash": "webpack serve --config webpack.hash.js",
+    "prepare": "husky install",
+    "build": "tsc",
+    "prepublish": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "ivan-pl",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.20.2",
